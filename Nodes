@@ -1,0 +1,225 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+typedef struct node{
+
+    int data;
+
+    struct node * next;
+
+}node;
+
+struct node* newnodeatbeginning(struct node * new, int x)
+
+{
+
+    struct node *temp = malloc(sizeof(node));
+
+    temp -> data = x;
+
+    if (new == NULL)
+
+    {
+
+        new = temp;
+
+        temp->next = new;
+
+    }
+
+    else
+
+    {
+
+        struct node *temp1 = new;
+
+        while(temp1 -> next != new)
+
+        {
+
+            temp1 = temp1 -> next;
+
+        }
+
+        temp1 -> next = temp;
+
+        temp -> next = new;
+
+        new = temp;
+
+    }
+
+    return new;
+
+}
+
+struct node* deleteatbeginning(struct node* new)
+
+{
+
+    struct node *temp = new;
+
+    new = temp -> next;
+
+    struct node *temp1 = new;
+
+    while(temp1->next != temp)
+
+    {
+
+        temp1 = temp1 -> next;
+
+    }
+
+    temp1 -> next = new;
+
+    free(temp);  
+
+    return new;
+
+}
+
+struct node* newnodeatend(struct node *new, int x)
+
+{
+
+    struct node *temp2 = malloc(sizeof(node));
+
+    struct node *temp1 = new;
+
+    temp2 -> data = x;
+
+    temp2 -> next = new;
+
+    while (temp1 -> next != new)
+
+    {
+
+        temp1 = temp1 -> next;
+
+    }
+
+    temp1 -> next = temp2;
+
+    return new;
+
+} 
+
+void print(struct node * new)
+
+{
+
+    struct node *temp = new;
+
+    while(temp->next != new)
+
+    {
+
+        printf("%d ", temp->data);
+
+        temp = temp -> next;
+
+    }
+
+    printf("%d ", temp->data);
+
+    printf("\n");
+
+}
+
+int main(void)
+
+{
+
+    node * start = NULL;
+
+    int flag = 0;
+
+    while(1){ 
+
+    printf("Linked list insertion program___\n");
+
+    printf("Enter 1 to insert a number at the beginning\n");
+
+    printf("Enter 2 to insert a number at the end\n");
+
+    //printf("Enter 3 to insert a number at the any particular position\n");
+
+    printf("Enter 3 to print all numbers.\n");
+
+    printf("Enter 4 to delete first node\n");
+
+    int ch;
+
+    scanf("%d", &ch);
+
+    flag = 0;
+
+    switch(ch)
+
+    {
+
+        case 1:
+
+        { 
+
+            int no;
+
+            printf("Enter the value: ");
+
+            scanf("%d", &no);
+
+            start = newnodeatbeginning(start, no);
+
+            break;
+
+        }
+
+        case 2:
+
+        { 
+
+            int no;
+
+            printf("Enter the value: ");
+
+            scanf("%d", &no);
+
+            start = newnodeatend(start, no);
+
+            break;
+
+        }
+
+        case 3:
+
+            print(start);
+
+            break;
+
+        case 4:
+
+        {
+
+            start = deleteatbeginning(start);
+
+            break;
+
+        }
+
+        default:
+
+            flag = 1;
+
+            break;        
+
+    }
+
+    if (flag)
+
+        break;
+
+    }  
+
+}
